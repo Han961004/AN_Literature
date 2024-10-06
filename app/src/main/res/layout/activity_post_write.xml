@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.activity.PostWriteActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/editTextTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="제목을 입력하세요"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="16dp"/>
+
+        <EditText
+            android:id="@+id/editTextContent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:hint="내용을 입력하세요"
+            android:gravity="top|start"
+            app:layout_constraintTop_toBottomOf="@id/editTextTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/buttonLayout"
+            android:layout_margin="16dp"/>
+
+        <LinearLayout
+            android:id="@+id/buttonLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="16dp">
+
+            <Button
+                android:id="@+id/buttonCenter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="가운데 정렬"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/buttonVertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="세로쓰기"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/buttonLeft"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="왼쪽 정렬"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
