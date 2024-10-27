@@ -1,31 +1,31 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/nav_home"
+        android:id="@+id/nav_home_frg"
         android:checkable="true"
         android:icon="@drawable/ic_menu_home"
         android:title="대문" />
     <item
-        android:id="@+id/nav_write"
+        android:id="@+id/nav_postList_act"
         android:checkable="true"
         android:icon="@drawable/ic_menu_pen"
-        android:title="글쓰기" />
+        android:title="글 모음" />
     <item
-        android:id="@+id/nav_posts_detail"
+        android:id="@+id/nav_feedbackList_act"
         android:checkable="true"
-        android:title="모음" />
+        android:title="첨삭" />
 
     <item android:title="그 밖의 조작">
         <menu>
             <item
-                android:id="@+id/nav_menu_account"
+                android:id="@+id/nav_statistics_act"
                 android:checkable="true"
-                android:title="계정 정보" />
+                android:title="통계 정보" />
             <item
-                android:id="@+id/nav_menu_settings"
+                android:id="@+id/nav_setting_act"
                 android:checkable="true"
                 android:title="설정" />
             <item
-                android:id="@+id/nav_menu_logout"
+                android:id="@+id/nav_logout_request"
                 android:checkable="true"
                 android:title="계정 나가기" />
         </menu>
