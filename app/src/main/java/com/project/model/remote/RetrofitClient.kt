@@ -19,6 +19,6 @@ object RetrofitClient {
 
     val tokenService: TokenService by lazy { retrofit.create(TokenService::class.java) }
     val signService: SignService by lazy { retrofit.create(SignService::class.java) }
-    val postsService: PostService by lazy { retrofit.create(PostService::class.java) }
+    val postService: PostService by lazy { retrofit.create(PostService::class.java) }
 
 }
