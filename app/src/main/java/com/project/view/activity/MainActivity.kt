@@ -32,9 +32,21 @@ class MainActivity : AppCompatActivity() {
         val headerView = binding.navigationView.getHeaderView(0) // 첫 번째 헤더를 가져옴
         userInfo = UserInfo(headerView) // UserInfo 인스턴스 생성, 헤더뷰 참조
 
+        // init Default Fragment
+        if (savedInstanceState == null)
+            supportFragmentManager.beginTransaction().replace(binding.fragmentContainer.id, MainHomeFragment()).commit()
+
         // 사용자 ID 설정 (예: 1번 사용자)
         val userId = 1
 
+
+
+        /* 최초 정보 받기
+        * nav bar의 닉네임, 현재 쓴 포스트 갯수
+        * HomeFrg 공지나 달력 및 오늘의 글감 등
+        * PostListFrg 포스트들 최초 20개 -> 무한 스크롤
+        * FeedListFrg 요청들 최초 20개 -> 무한 스크롤
+        *  */
         lifecycleScope.launch {
             try {
                 val response: Response<UserDetailResponse> = RetrofitClient.signService.getUserDetails(userId)
@@ -62,13 +74,15 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        // 기본 Fragment 설정
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, MainHomeFragment())
-                .commit()
-        }
 
+
+        /* nav bar
+        * MainHomeFrg
+        * PostListFrg
+        * FeedListFrg
+        * StatisticsAct 통계
+        * SettingAct
+        * Logout Request */
         binding.apply {
             toolbar.setNavigationOnClickListener {
                 drawerLayout.open()
@@ -76,47 +90,48 @@ class MainActivity : AppCompatActivity() {
 
             navigationView.setNavigationItemSelectedListener { menuItem ->
                 menuItem.isChecked = true
-                Log.d("testt", "Menu item selected: ${menuItem.itemId}")
 
                 when (menuItem.itemId) {
-                    R.id.nav_home -> {
-                        Toast.makeText(this@MainActivity, "홈", Toast.LENGTH_SHORT).show()
-                        supportFragmentManager.beginTransaction()
-                            .replace(R.id.fragmentContainer, MainHomeFragment())
-                            .commit()
-                        Log.d("testt", "MainHomeFragment loaded")
+                    R.id.nav_home_frg -> {
+                        supportFragmentManager.beginTransaction().replace(binding.fragmentContainer.id, MainHomeFragment()).commit()
+
                     }
-                    R.id.nav_write -> {
-                        Toast.makeText(this@MainActivity, "글쓰기", Toast.LENGTH_SHORT).show()
-                        // PostsWriteActivity로 이동
-                        val intent = Intent(this@MainActivity, PostWriteActivity::class.java)
-                        startActivity(intent)
-                        Log.d("testt", "Navigating to PostWriteActivity")
-                    }
-                    R.id.nav_posts_detail -> {
-                        val intent = Intent(this@MainActivity, PostDetailActivity::class.java)
+                    R.id.nav_postList_act -> {
+                        val intent = Intent(this@MainActivity, PostListActivity::class.java)
                         startActivity(intent)
                     }
-                    R.id.nav_menu_logout -> {
-                        // 로그아웃 처리
-                        performLogout()
+
+                    R.id.nav_feedbackList_act -> {
+                        val intent = Intent(this@MainActivity, FeedbackActivity::class.java)
+                        startActivity(intent)
+                    }
+
+                    R.id.nav_statistics_act -> {
+                        Toast.makeText(this@MainActivity, "통계 화면", Toast.LENGTH_SHORT).show()
+                    }
+                    R.id.nav_setting_act -> {
+                        Toast.makeText(this@MainActivity, "설정 화면", Toast.LENGTH_SHORT).show()
+                    }
+                    R.id.nav_logout_request -> {
+                        Toast.makeText(this@MainActivity, "로그 아웃 요청", Toast.LENGTH_SHORT).show()
+                        requestsLogout()
                     }
                 }
-                // Drawer를 닫기
+
                 drawerLayout.close()
                 true
             }
         }
     }
 
-    private fun performLogout() {
-        // SharedPreferences 등을 사용해 토큰 제거 (로그인 상태 해제)
-        val sharedPreferences = getSharedPreferences("your_app_prefs", MODE_PRIVATE)
-        sharedPreferences.edit().clear().apply()
 
-        // 로그인 화면으로 이동
-        val intent = Intent(this, SignInActivity::class.java)
-        startActivity(intent)
-        finish() // 현재 Activity 종료
+    private fun requestsLogout() {
+//        // SharedPreferences 등을 사용해 토큰 제거 (로그인 상태 해제)
+//        val sharedPreferences = getSharedPreferences("your_app_prefs", MODE_PRIVATE)
+//        sharedPreferences.edit().clear().apply()
+//
+//        val intent = Intent(this, SignInActivity::class.java)
+//        startActivity(intent)
+//        finish()
     }
 }
