@@ -1,6 +1,7 @@
 package com.project.model.remote.service
 
 import com.project.model.remote.dataclass.Comment
+import com.project.model.remote.dataclass.Post
 import com.project.model.remote.dataclass.PostDetailResponse
 import com.project.model.remote.dataclass.PostsLoading
 import com.project.model.remote.dataclass.PostsRequest
@@ -17,34 +18,17 @@ import retrofit2.http.Query
 
 interface PostService {
 
-    // === 로딩 Posts === //
-    @GET("/api/loading")
-    suspend fun loadingPosts(
-        @Header("Authorization") token: String,
-        @Query("limit") limit: Int = 10
-    ): List<PostsLoading>
+    @GET("postList")
+    suspend fun getPostList(
+        @Query("page") page: Int,
+        @Query("size") size: Int
+    ): Response<List<Post>>
 
-    // === 게시글 Posts 관련 === //
-    @POST("/api/posts")
-    suspend fun createPost(
-        @Header("Authorization") token: String,
-        @Body request: PostsRequest
-    ): Response<PostsResponse>
-
-    @GET("/api/posts/{post_id}")
-    suspend fun getPost(
-        @Path("post_id") postId: Int
+    @GET("postDetail")
+    suspend fun getPostDetail(
+        @Path("id") postId: Int
     ): Response<PostDetailResponse>
 
-    @DELETE("/api/posts/{post_id}")
-    suspend fun deletePost(
-        @Path("post_id") postId: String
-    ): Response<Unit>
 
-    // === 게시글 Comments 관련 === //
-    @GET("/api/posts/{postId}/comments")
-    fun getComments(
-        @Path("postId") postId: String
-    ): Call<List<Comment>>
 
 }

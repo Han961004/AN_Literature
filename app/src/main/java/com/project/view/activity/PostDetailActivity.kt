@@ -1,8 +1,5 @@
 package com.project.view.activity
 
-// PostDetailActivity.kt
-import PostViewModel
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,11 +8,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.project.R
 import com.project.databinding.ActivityPostDetailBinding
 import com.project.model.remote.dataclass.PostDetailResponse
+import com.project.util.PostPagerAdapter
+import com.project.viewmodel.PostViewModel
 
 class PostDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPostDetailBinding
-    private var postId: Int = 0
     private lateinit var viewModel: PostViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,21 +21,29 @@ class PostDetailActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_post_detail)
         viewModel = ViewModelProvider(this).get(PostViewModel::class.java)
 
-        postId = intent.getIntExtra("post_id", 1)
+        val postId = intent.getIntExtra("post_id", -1)
+        if (postId != -1) {
+            viewModel.getPosts()  // 모든 게시글을 가져오는 메서드 호출
+        } else {
+            Toast.makeText(this, "Post ID not found", Toast.LENGTH_SHORT).show()
+            finish()
+        }
 
-        viewModel.getPostDetail(postId)
-
-        viewModel.post.observe(this, { post ->
-            post?.let { setupUI(it) } ?: run {
-                Toast.makeText(this, "Failed to load post", Toast.LENGTH_SHORT).show()
+        viewModel.posts.observe(this) { posts -> // posts로 변경
+            if (!posts.isNullOrEmpty()) { // 리스트가 비어있지 않은지 확인
+                setupViewPager(posts)
+                val startPosition = posts.indexOfFirst { it.id == postId }
+                if (startPosition != -1) {
+                    binding.viewPager.setCurrentItem(startPosition, false)
+                }
+            } else {
+                Toast.makeText(this, "Failed to load posts", Toast.LENGTH_SHORT).show()
             }
-        })
+        }
     }
 
-    private fun setupUI(post: PostDetailResponse) {
-        binding.textViewTitle.text = post.title
-        binding.textViewAuthor.text = post.author_name
-        binding.textViewContent.text = post.content
-        binding.textViewLikes.text = "${post.likes} likes"
+    private fun setupViewPager(posts: List<PostDetailResponse>) {
+        val adapter = PostPagerAdapter(this, posts)
+        binding.viewPager.adapter = adapter
     }
 }
