@@ -87,7 +87,7 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
     implementation ("androidx.fragment:fragment-ktx:1.5.0")
 
-    // 상단 LoadingPosts가 어디쯤 있는지 알 수 있는 dependency
+    // LoadingPosts에서 상단 표시로 현재 어디쯤 있는지 알 수 있는 dependency
     implementation ("com.tbuonomo:dotsindicator:4.2")
 
     // recyclerview
@@ -95,5 +95,8 @@ dependencies {
 
     // coroutine
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
+
+    // pull to refresh
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
 }
