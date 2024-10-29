@@ -1,32 +1,28 @@
-package com.project.view.activity
+package com.project.view.sign.`in`.local
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.common.KakaoSdk
-import com.kakao.sdk.common.model.ClientError
-import com.kakao.sdk.common.model.ClientErrorCause
-import com.kakao.sdk.user.UserApiClient
-import com.project.R
-import com.project.databinding.ActivitySigninBinding
-import com.project.model.remote.RetrofitClient
+import com.project.databinding.ActivitySignInBinding
+import com.project.util.RetrofitClient
 import com.project.model.remote.dataclass.SignInRequest
 import com.project.model.remote.dataclass.SignInResponse
+import com.project.view.main.MainActivity
+import com.project.view.sign.up.SignUpActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class SignInActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivitySigninBinding
+    private lateinit var binding: ActivitySignInBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySigninBinding.inflate(layoutInflater)
+        binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
@@ -34,9 +30,9 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun setupClickListeners() {
-        binding.btnLogin.setOnClickListener { handleLogin() }
+        binding.btnLogin.setOnClickListener { handleLocalLogin() }
         binding.btnSignup.setOnClickListener { handleSignUp() }
-        binding.btnKakaoLogin.setOnClickListener { handleKakaoLogin() }
+//        binding.btnKakaoLogin.setOnClickListener { handleKakaoLogin() }
         binding.btnNaverLogin.setOnClickListener {  }
     }
 
@@ -47,7 +43,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
     // 로컬 로그인 처리
-    private fun handleLogin() {
+    private fun handleLocalLogin() {
         val id = binding.etId.text.toString()
         val password = binding.etPassword.text.toString()
 
@@ -72,7 +68,6 @@ class SignInActivity : AppCompatActivity() {
                         Log.d("testt", "Authorization 헤더: $authorizationHeader")
 
                         if (!authorizationHeader.isNullOrEmpty()) {
-                            saveAccessToken(authorizationHeader)  // Bearer 포함하여 전체 토큰 저장
                             val intent = Intent(this@SignInActivity, MainActivity::class.java)
                             startActivity(intent)
                             finish()
@@ -99,51 +94,51 @@ class SignInActivity : AppCompatActivity() {
 
 
 
-    // 카카오 로그인 처리
-    private fun handleKakaoLogin() {
-        KakaoSdk.init(this, getString(R.string.kakao_api_key))
-
-        if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
-            UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
-                if (error != null) {
-                    Log.d("testt", "카카오톡으로 로그인 실패! " + error.message)
-
-                    if (error is ClientError && error.reason == ClientErrorCause.Cancelled) { return@loginWithKakaoTalk }
-                    loginWithKakaoAccount()
-                } else if (token != null) {
-                    val intent = Intent(this, LoadingActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                    Log.d("testt", "카카오톡으로 로그인 성공! " + token.accessToken)
-                }
-            }
-        } else {
-            loginWithKakaoAccount()
-        }
-    }
-
-    private fun loginWithKakaoAccount() {
-        val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-            if (error != null) {
-                Log.d("testt", "카카오 계정으로 로그인 실패! " + error.message)
-            } else if (token != null) {
-                // 카카오 계정 로그인 성공 시 토큰 저장
-                saveAccessToken(token.accessToken)
-
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-                Log.d("testt", "카카오 계정으로 로그인 성공! " + token.accessToken)
-            }
-        }
-        UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
-    }
-
-    private fun saveAccessToken(token: String) {
-        val sharedPreferences = getSharedPreferences("auth", MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("jwt_token", token)
-        editor.apply()
-    }
+//    // 카카오 로그인 처리
+//    private fun handleKakaoLogin() {
+//        KakaoSdk.init(this, getString(R.string.kakao_api_key))
+//
+//        if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
+//            UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
+//                if (error != null) {
+//                    Log.d("testt", "카카오톡으로 로그인 실패! " + error.message)
+//
+//                    if (error is ClientError && error.reason == ClientErrorCause.Cancelled) { return@loginWithKakaoTalk }
+//                    loginWithKakaoAccount()
+//                } else if (token != null) {
+//                    val intent = Intent(this, LoadingActivity::class.java)
+//                    startActivity(intent)
+//                    finish()
+//                    Log.d("testt", "카카오톡으로 로그인 성공! " + token.accessToken)
+//                }
+//            }
+//        } else {
+//            loginWithKakaoAccount()
+//        }
+//    }
+//
+//    private fun loginWithKakaoAccount() {
+//        val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+//            if (error != null) {
+//                Log.d("testt", "카카오 계정으로 로그인 실패! " + error.message)
+//            } else if (token != null) {
+//                // 카카오 계정 로그인 성공 시 토큰 저장
+//                saveAccessToken(token.accessToken)
+//
+//                val intent = Intent(this, MainActivity::class.java)
+//                startActivity(intent)
+//                finish()
+//                Log.d("testt", "카카오 계정으로 로그인 성공! " + token.accessToken)
+//            }
+//        }
+//        UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
+//    }
+//
+//    private fun saveAccessToken(token: String) {
+//        val sharedPreferences = getSharedPreferences("auth", MODE_PRIVATE)
+//        val editor = sharedPreferences.edit()
+//        editor.putString("jwt_token", token)
+//        editor.apply()
+//    }
 
 }

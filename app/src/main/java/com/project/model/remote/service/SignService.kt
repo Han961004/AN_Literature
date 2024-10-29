@@ -15,7 +15,7 @@ import retrofit2.http.Path
 
 interface SignService {
 
-    @POST("/api/auth/signup")
+    @POST("api/signup/")
     fun signUp(
         @Body request: SignUpRequest
     ): Call<Void>

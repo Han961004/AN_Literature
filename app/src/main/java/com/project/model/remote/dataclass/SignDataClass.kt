@@ -1,11 +1,13 @@
 package com.project.model.remote.dataclass
 
+// 로컬 회원 가입 RequestBody
 data class SignUpRequest(
-    val id: String,
-    val email: String,
-    val password: String,
-    val nickname: String
+    val username: String,
+    val password: String
 )
+
+
+
 
 data class SignInRequest(
     val id: String,
