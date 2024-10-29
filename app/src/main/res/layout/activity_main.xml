@@ -5,7 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.activity.MainActivity"
+    tools:context=".view.main.MainActivity"
     tools:openDrawer="start">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/layout_nav_header"
+        app:headerLayout="@layout/activity_main_nav_header"
         app:itemTextAppearanceActiveBoldEnabled="false"
         app:menu="@menu/drawer_menu" />
 

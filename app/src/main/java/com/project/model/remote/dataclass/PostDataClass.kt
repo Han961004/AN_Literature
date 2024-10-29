@@ -5,7 +5,8 @@ import java.io.Serializable
 
 /* Post 관련 Data Class
 * Post 단일 게시글 정보
-* PostList 게시글들을 리스트로 가져올 dataclass
+* PostList 게시글 전부 가져올 dataclass
+* SavePost 게시글 저장
 *  */
 
 data class Post(
@@ -24,6 +25,13 @@ data class PostList(
     val title: String,
     val author: String
 )
+
+
+
+
+
+
+
 
 
 
@@ -48,10 +56,6 @@ data class PostDetailResponse(
 
 
 
-data class PostsRequest(
-    val title: String,
-    val content: String
-)
 
 
 data class PostsResponse(
@@ -62,11 +66,7 @@ data class PostsResponse(
     val likes: Int
 )
 
-data class PostsLoading(
-    val title: String,
-    val content: String,
-    val likes: Int
-)
+
 
 data class Author(
     val id: String,
