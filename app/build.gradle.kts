@@ -6,6 +6,13 @@ fun getApiKey(key: String): String = gradleLocalProperties(rootDir, providers).g
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+
+    // Parcelize
+    id("kotlin-parcelize")
+
+    // Hilt
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -47,11 +54,9 @@ android {
     buildFeatures {
         buildConfig = true
         dataBinding = true
+        viewBinding = true
     }
 
-    viewBinding {
-        enable = true
-    }
 }
 
 dependencies {
@@ -98,5 +103,19 @@ dependencies {
 
     // pull to refresh
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
+    // Hilt
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
+
+    // dagger
+    implementation("com.google.dagger:dagger:2.x")
+    kapt("com.google.dagger:dagger-compiler:2.x")
+
+    // room
+    implementation("androidx.room:room-runtime:2.5.2")
+    kapt("androidx.room:room-compiler:2.5.2")
+
+
 
 }
