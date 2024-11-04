@@ -1,4 +1,3 @@
-// SignUpActivity.kt
 package com.project.view.sign.up
 
 import android.content.Intent
@@ -9,7 +8,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.project.databinding.ActivitySignUpBinding
-import com.project.view.main.MainActivity
+import com.project.view.sign.`in`.LocalSignInActivity
+
+
+/*
+* Activity: UI 요소와 상호작용하고 사용자 입력을 처리하는 역할을 합니다.
+* 예를 들어, 버튼 클릭 이벤트를 처리하고 UI 요소를 업데이트하는 작업을 담당합니다.
+ */
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -25,12 +30,15 @@ class SignUpActivity : AppCompatActivity() {
         signUpBtn()
     }
 
+    /*
+    * 뷰 모델 관측 값
+     */
     private fun setUpObservers() {
         viewModel.signUpSuccess.observe(this, Observer { success ->
             if (success) {
                 Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
                 Log.d("testt", "회원가입 성공")
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, LocalSignInActivity::class.java))
                 finish()
             }
         })
@@ -41,6 +49,11 @@ class SignUpActivity : AppCompatActivity() {
         })
     }
 
+    /* UI 
+    * 회원 가입 필드를 입력 후, 
+    * ViewModel 로 보냄
+    * 확인 후 Bool 값을 위 setUpObservers 에 전송
+     */
     private fun signUpBtn() {
         binding.buttonSignUp.setOnClickListener {
             val username = binding.editTextUsername.text.toString()

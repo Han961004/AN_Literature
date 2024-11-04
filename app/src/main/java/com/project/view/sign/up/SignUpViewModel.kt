@@ -5,11 +5,16 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.project.model.remote.dataclass.SignUpRequest
+import androidx.lifecycle.viewModelScope
+import com.project.model.remote.dataclass.LocalSignUpRequest
 import com.project.util.RetrofitClient
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.launch
+
+
+/*
+* ViewModel는 데이터 저장소 및 비즈니스 로직을 담당하여 UI에서 필요한 데이터를 제공하는 역할을 합니다.
+* ViewModel은 Activity와 Fragment가 참조할 수 있는 데이터와 로직을 관리합니다.
+ */
 
 class SignUpViewModel : ViewModel() {
 
@@ -19,13 +24,18 @@ class SignUpViewModel : ViewModel() {
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
+
+    /*
+    *
+     */
     fun signUp(username: String, password: String) {
-        val request = SignUpRequest(username, password)
+        val request = LocalSignUpRequest(username, password, email = "")
 
         Log.d("testt", "회원가입 요청 시작: $request")
 
-        RetrofitClient.signService.signUp(request).enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+        viewModelScope.launch {
+            try {
+                val response = RetrofitClient.signService.localSignUpRequest(request)
                 if (response.isSuccessful) {
                     _signUpSuccess.value = true
                     Log.d("testt", "회원가입 요청 성공")
@@ -33,12 +43,11 @@ class SignUpViewModel : ViewModel() {
                     _errorMessage.value = "회원가입 실패: ${response.code()}"
                     Log.e("testt", "회원가입 실패: 코드 ${response.code()}, 메시지 ${response.message()}")
                 }
+            } catch (e: Exception) {
+                _errorMessage.value = "회원가입 요청 실패: ${e.message}"
+                Log.e("testt", "회원가입 요청 실패", e)
             }
+        }
 
-            override fun onFailure(call: Call<Void>, t: Throwable) {
-                _errorMessage.value = "회원가입 요청 실패: ${t.message}"
-                Log.e("testt", "회원가입 요청 실패", t)
-            }
-        })
     }
 }
