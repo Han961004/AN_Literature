@@ -1,4 +1,4 @@
-//package com.project.view.loading
+package com.project.ui.view//package com.project.view.loading
 //
 //import android.os.Bundle
 //import android.view.LayoutInflater

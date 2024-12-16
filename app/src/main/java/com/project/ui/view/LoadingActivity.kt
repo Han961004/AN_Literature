@@ -1,4 +1,4 @@
-//package com.project.view.loading
+package com.project.ui.view//package com.project.view.loading
 //
 //import android.content.Intent
 //import android.os.Bundle

@@ -4,7 +4,7 @@
 //import androidx.lifecycle.MutableLiveData
 //import androidx.lifecycle.ViewModel
 //import androidx.lifecycle.viewModelScope
-//import com.project.util.RetrofitClient
+//import com.project.data.api.RetrofitBuilder
 //import kotlinx.coroutines.launch
 //import retrofit2.HttpException
 //import android.util.Log
@@ -12,7 +12,7 @@
 //
 //class PostWriteViewModel : ViewModel() {
 //
-//    private val postService = RetrofitClient.postService
+//    private val postService = RetrofitBuilder.postService
 //
 //    private val _content = MutableLiveData<String>()
 //    val content: LiveData<String> get() = _content

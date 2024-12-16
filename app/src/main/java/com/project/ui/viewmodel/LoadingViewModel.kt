@@ -6,7 +6,7 @@
 //import androidx.lifecycle.ViewModel
 //import androidx.lifecycle.viewModelScope
 //import com.project.model.remote.dataclass.GetLoadingPost
-//import com.project.util.RetrofitClient
+//import com.project.data.api.RetrofitBuilder
 //import kotlinx.coroutines.launch
 //
 //class LoadingViewModel : ViewModel() {
@@ -17,7 +17,7 @@
 //    private val _error = MutableLiveData<String>()
 //    val error: LiveData<String> get() = _error
 //
-//    private val loadingService = RetrofitClient.postService
+//    private val loadingService = RetrofitBuilder.postService
 //
 //    fun loadTop5Posts() {
 //        viewModelScope.launch {

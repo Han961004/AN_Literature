@@ -6,14 +6,14 @@
 //import androidx.lifecycle.viewModelScope
 //import com.project.model.remote.service.PostService  // Retrofit 서비스
 //import com.project.model.remote.dataclass.GetPostDetailResponse
-//import com.project.util.RetrofitClient
+//import com.project.data.api.RetrofitBuilder
 //import kotlinx.coroutines.launch
 //import retrofit2.Response
 //import android.util.Log
 //
 //class PostDetailViewModel : ViewModel() {
 //
-//    private val postService = RetrofitClient.postService  // Retrofit 서비스 인스턴스
+//    private val postService = RetrofitBuilder.postService  // Retrofit 서비스 인스턴스
 //
 //    private val _postDetail = MutableLiveData<GetPostDetailResponse>()  // 단일 포스트 라이브 데이터
 //    val postDetail: LiveData<GetPostDetailResponse> get() = _postDetail

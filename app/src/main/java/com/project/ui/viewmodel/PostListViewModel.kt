@@ -10,11 +10,11 @@
 //import android.util.Log
 //import com.project.model.remote.dataclass.PaginatedResponse
 //import com.project.model.remote.dataclass.PostsResponse
-//import com.project.util.RetrofitClient
+//import com.project.data.api.RetrofitBuilder
 //
 //class PostListViewModel : ViewModel() {
 //
-//    private val postService = RetrofitClient.postService  // 직접 초기화
+//    private val postService = RetrofitBuilder.postService  // 직접 초기화
 //
 //    private val _postList = MutableLiveData<List<PostsResponse>>() // List<Post>로 수정
 //    val postList: LiveData<List<PostsResponse>> get() = _postList

@@ -1,4 +1,4 @@
-//import android.content.Context
+package com.project.ui.adapter//import android.content.Context
 //import android.content.Intent
 //import android.view.LayoutInflater
 //import android.view.ViewGroup

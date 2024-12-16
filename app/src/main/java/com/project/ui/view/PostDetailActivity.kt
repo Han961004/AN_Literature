@@ -1,4 +1,4 @@
-//package com.project.view.post.detail
+package com.project.ui.view//package com.project.view.post.detail
 //
 //import android.os.Bundle
 //import android.widget.Toast
