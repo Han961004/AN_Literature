@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitBuilder {
 
-    private const val BASE_URL = "http://192.168.137.1:8080/"
+    private const val BASE_URL = "http://10.113.0.161:8000/"
 
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
@@ -14,5 +14,11 @@ object RetrofitBuilder {
             .build()
     }
 
-    val signService: AccountsService by lazy { retrofit.create(AccountsService::class.java) }
+    private val accountsService: AccountsService by lazy {
+        retrofit.create(AccountsService::class.java)
+    }
+
+    val apiHelper: ApiHelper by lazy {
+        ApiHelper(accountsService)
+    }
 }
