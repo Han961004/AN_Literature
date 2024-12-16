@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-        android:name=".view.sign.MyApplication"
+
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -17,7 +17,7 @@
         android:theme="@style/Theme.Project"
         tools:targetApi="31">
         <activity
-            android:name=".view.sign.up.SignUpActivity"
+            android:name=".ui.view.AccountsLoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,28 +26,8 @@
         </activity>
 
 
-        <!--   Main 관련   -->
-        <activity android:name=".view.main.MainActivity"/>
-
-
-        <!--   Loading 관련   -->
-<!--        <activity android:name=".view.loading.LoadingActivity"/>-->
-
-
         <!--   Sign 관련   -->
-<!--        <activity android:name=".view.sign.up.SignUpActivity"/>-->
-        <!--        <activity android:name=".view.activity.SplashActivity"/>-->
-        <activity android:name=".view.sign.in.local.SignInActivity"/>
-
-        <!--   Feedback 관련     -->
-        <activity android:name=".view.feedback.FeedbackListActivity"/>
-        <activity android:name=".view.feedback.FeedbackDetailActivity"/>
-
-        <!--   Post 관련     -->
-        <activity android:name=".view.post.write.PostWriteActivity"/>
-        <activity android:name=".view.post.list.PostListActivity"/>
-        <activity android:name=".view.post.detail.PostDetailActivity"/>
-        <activity android:name=".view.post.comment.PostCommentActivity"/>
+        <activity android:name=".ui.view.AccountsSignActivity"/>
 
     </application>
 
